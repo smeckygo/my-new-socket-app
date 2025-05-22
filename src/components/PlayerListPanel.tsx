@@ -1,3 +1,4 @@
+// src/components/PlayerListPanel.tsx
 import React from 'react';
 import { useConnectedPlayers } from '../hooks/socketHandlers/useConnectedPlayers';
 
@@ -13,14 +14,14 @@ const PlayerListPanel: React.FC = () => {
                 ) : (
                     connectedPlayers.map(player => (
                         <div
-                            key={player.user_id}
+                            key={player.user_id} // 'player.id' helyett 'player.user_id'
                             className={`player-card status-${player.status ?? 'offline'}`}
                         >
                             <div className="player-card-avatar">
-                                {(player.username?.charAt(0) ?? '?').toUpperCase()}
+                                {(player.username?.charAt(0) ?? '?').toUpperCase()} // 'player.name' helyett 'player.username'
                             </div>
                             <div className="player-card-info">
-                                <span className="player-card-name">{player.username}</span>
+                                <span className="player-card-name">{player.username}</span> // 'player.name' helyett 'player.username'
                                 <span className="player-card-score">{player.score ?? 0} pont</span>
                             </div>
                         </div>
