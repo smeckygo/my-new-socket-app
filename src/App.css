@@ -1,38 +1,2052 @@
-.App {
+/* src/app.css */
+
+
+
+*, *::before, *::after {
+  box-sizing: inherit; /* minden elem örökölje a box-sizingot */
+}
+/* src/App.css - Modify html and body Styles */
+
+html {
+  height: 100%; /* Ensure html covers full viewport height */
+}
+
+body {
+  margin: 0;
+  font-family: sans-serif;
+  /* Change background-color to a linear-gradient */
+  /* Gradient from dark teal to lighter teal */
+  color: #333; /* Text color on content areas */
+  line-height: 1.6;
+  box-sizing: border-box;
+  height: 100%; /* Ensure body covers full viewport height */
+  /* Prevent gradient from repeating if content is short */
+  /* Ensure background covers the viewport even on scroll */
+  background: linear-gradient(to bottom, #2c4a4f, #5a8c8a) no-repeat fixed;
+}
+
+/* ... rest of the CSS ... */
+
+
+.container {
+  display: flex; /* flexbox használata a fő elrendezéshez (sidebar + main-area-wrapper) */
+  min-height: 100vh; /* a konténer legyen legalább az ablak magassága */
+  overflow: hidden; /* megakadályozza, hogy a tartalom kilógjon */
+}
+
+/* bal oldali menü (sidebar) */
+.sidebar {
+  width: 250px; /* fix szélesség */
+  background-color: #2c4a4f; /* sötétebb, kékeszöld háttér */
+  color: #b3e0e5; /* világos, zöldes fehér szövegszín */
+  padding-top: 20px;
+  display: flex; /* flexbox a menüpontok elrendezéséhez */
+  flex-direction: column; /* menüpontok egymás alatt */
+  justify-content: space-between; /* az alsó elem a legaljára kerüljön */
+  flex-shrink: 0; /* megakadályozza a sidebar összezsugorodását */
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease; /* átmenet mindkettőre */
+}
+
+.sidebar-item:hover {
+  background-color: #3a5d64; /* sötétebb háttér hover-re */
+}
+
+.sidebar-item.active {
+  background-color: #3a5d64; /* aktív elem háttérszíne */
+  color: #ffffff; /* fehér szöveg az aktív elemen */
+}
+
+.sidebar-item i {
+  margin-right: 10px;
+  font-size: 1.2em;
+  color: #b3e0e5; /* ikon színe megegyezik a szöveggel alapból */
+  transition: color 0.3s ease; /* átmenet az ikon színre */
+}
+
+.sidebar-item.active i {
+  color: #ffffff; /* fehér ikon az aktív elemen */
+}
+
+.sidebar-item.bottom {
+  margin-top: auto; /* ezt tolja az aljára a justify-content: space-between hatására */
+  border-top: 1px solid #3f5a72; /* elválasztó vonal a "kilépés" előtt */
+}
+
+/* új wrapper div a main-content-area és right-panel számára */
+.main-area-wrapper {
+  flex-grow: 1; /* kitölti a rendelkezésre álló helyet a sidebar mellett */
+  display: flex; /* flexbox a main-content-area és right-panel elrendezéséhez */
+  flex-wrap: nowrap; /* <-- explicit beállítás: megakadályozza a tördelést új sorba */
+}
+
+/* fő tartalom terület (main-content-area) */
+.main-content-area {
+  flex-grow: 1; /* kitölti a rendelkezésre álló helyet a right-panel mellett */
+  display: flex;
+  flex-direction: column; /* tartalom elemek egymás alatt */
+  background-color: #f9f9f9; /* világosabb háttérszín */
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto; /* görgethetővé teszi, ha a tartalom túl hosszú */
+}
+
+/* felső sáv */
+.top-bar {
+  display: flex;
+  justify-content: flex-end; /* jobbra igazítás */
+  margin-bottom: 40px;
+}
+
+.user-info {
+  color: #333; /* alap szövegszín */
+  padding: 5px 0;
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+}
+
+.user-avatar {
+  background-color: #4a7d85; /* kékeszöld háttér */
+  color: white;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  font-size: 1em;
+  font-weight: normal;
+}
+
+.user-name {
+  margin-right: 15px;
+  color: #4a7d85; /* kékeszöld szöveg */
+}
+
+.user-score {
+  background-color: #2c4a4f; /* sötét, kékeszöld háttér */
+  color: #b3e0e5; /* világos szöveg */
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 1em;
+}
+
+/* középső tartalom */
+.central-content {
+  flex-grow: 1; /* kitölti a rendelkezésre álló helyet függőlegesen */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* középre igazítás vízszintesen */
+  justify-content: center; /* középre igazítás függőlegesen */
+  text-align: center;
+  padding-bottom: 50px; /* hely az alsó linkeknek */
+
+}
+
+.central-content h1 {
+  font-size: 4em;
+  color: #4a7d85; /* kékeszöld cím */
+  margin-bottom: 30px;
+  font-weight: normal;
+}
+
+/* kvíz beállítások (csúszkák) */
+.quiz-settings {
+  margin-bottom: 40px;
+  width: 80%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  align-items: center;
+}
+
+.setting-group {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #4a7d85;
+  font-size: 1.1em;
+}
+
+.setting-group label {
+  margin-right: 15px;
+  flex-shrink: 0;
+}
+
+.setting-group input[type="range"] {
+  flex-grow: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  background: #bdc3c7;
+  outline: none;
+  opacity: 0.7;
+  transition: opacity .2s;
+  margin: 0 15px;
+  border-radius: 5px;
+}
+
+.setting-group input[type="range"]:hover {
+  opacity: 1;
+}
+
+/* csúszka "gomb" (thumb) stílusozása - webkit (chrome, safari) */
+.setting-group input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #4a7d85;
+  cursor: pointer;
+  border-radius: 50%;
+  margin-top: -6px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  transition: background-color 0.3s ease;
+}
+
+.setting-group input[type="range"]::-webkit-slider-thumb:hover {
+  background: #3a5d64;
+}
+
+/* csúszka "gomb" (thumb) stílusozása - moz (firefox) */
+.setting-group input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: #4a7d85;
+  cursor: pointer;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  transition: background-color 0.3s ease;
+}
+.setting-group input[type="range"]::-moz-range-thumb:hover {
+  background: #3a5d64;
+}
+
+/* csúszka sáv (track) stílusozása - webkit (chrome, safari) */
+.setting-group input[type="range"]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 8px;
+  cursor: pointer;
+  background: #bdc3c7;
+  border-radius: 5px;
+}
+
+/* csúszka sáv (track) stílusozása - moz (firefox) */
+.setting-group input[type="range"]::-moz-range-track {
+  width: 100%;
+  height: 8px;
+  cursor: pointer;
+  background: #bdc3c7;
+  border-radius: 5px;
+}
+
+.setting-group span {
+  width: 40px;
+  text-align: right;
+  flex-shrink: 0;
+  font-weight: bold;
+}
+
+/* kvíz indítása gomb */
+.start-quiz-button {
+  background: linear-gradient(to bottom, #fbc02d, #f57c00);
+  color: white;
+  border: none;
+  padding: 18px 60px;
+  border-radius: 30px;
+  font-size: 1.8em;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.start-quiz-button:disabled {
+  background: linear-gradient(to bottom, #cccccc, #888888);
+  color: white;
+  border: none;
+  padding: 18px 60px;
+  border-radius: 30px;
+  font-size: 1.8em;
+  cursor: not-allowed;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+
+.start-quiz-button:hover {
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+  transform: translatey(-3px);
+}
+
+.description-text {
+  font-size: 1.1em;
+  color: #555;
+}
+
+/* alsó linkek */
+.bottom-links {
+  margin-top: auto;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+  width: 100%;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+.bottom-links a {
+  text-decoration: none;
+  color: #555;
+  font-size: 1em;
+  transition: color 0.3s ease;
+}
+
+.bottom-links a:hover {
+  color: #333;
+}
+
+.bottom-links a i {
+  margin-right: 8px;
+  color: #777;
+}
+
+
+/* jobb oldali panel */
+.right-panel {
+  width: 280px;
+  background-color: #fdfcfb;
+  padding: 20px;
+  box-shadow: -2px 0 8px rgba(0,0,0,0.08);
+  box-sizing: border-box;
+  flex-shrink: 0;
+  overflow-y: auto;
+}
+
+.right-panel h3 {
+  color: #4a7d85;
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1.3em;
+}
+.right-panel h4 {
+  color: #4a7d85;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+.challenge-details p {
+  margin: 5px 0;
+  color: #555;
+  font-size: 1em;
+}
+
+.players-in-game {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.player-badge {
+  width: 35px;
+  height: 35px;
+  background-color: #bdc3c7;
+  color: #333;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9em;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* különböző színek a badge-eknek */
+.players-in-game .player-badge:nth-child(1) { background-color: #42a5f5; color: white;} /* kék */
+.players-in-game .player-badge:nth-child(2) { background-color: #ef5350; color: white;} /* piros */
+.players-in-game .player-badge:nth-child(3) { background-color: #ffee58; color: #333;} /* sárga */
+
+
+.player-names p,
+.online-players-list p {
+  margin: 8px 0;
+  color: #555;
+  font-size: 1em;
+  display: flex;
+  align-items: center;
+}
+
+.player-names p i,
+.online-players-list p i {
+  margin-right: 8px;
+  color: #bdc3c7;
+  font-size: 1em;
+}
+
+.online-players-heading {
+  border-top: 1px solid #eee;
+  padding-top: 15px;
+  margin-top: 20px;
+}
+
+
+/* reszponzivitás */
+@media (max-width: 992px) {
+  .container {
+    flex-direction: column; /* kisebb képernyőn egymás alá rendezés */
+  }
+
+  /* a wrapper is egymás alá rendezi a tartalmat */
+  .main-area-wrapper {
+    flex-direction: column;
+    flex-wrap: wrap; /* itt engedélyezzük a tördelést kisebb képernyőn */
+  }
+
+  .sidebar {
+    width: 100%; /* teljes szélesség */
+    flex-direction: row; /* menüpontok egymás mellé */
+    padding: 10px 0;
+    justify-content: space-around; /* egyenletes elosztás */
+    height: auto; /* magasság legyen automatikus */
+  }
+
+  .sidebar-item {
+    padding: 10px;
+    flex-direction: column; /* ikon és szöveg egymás alatt */
+    text-align: center;
+  }
+
+  .sidebar-item i {
+    margin: 0 0 5px 0;
+  }
+
+  .sidebar-item.bottom {
+    margin-top: 0;
+    border-top: none;
+    padding: 10px;
+  }
+
+
+  .main-content-area,
+  .right-panel {
+    width: 100%; /* teljes szélesség */
+    flex-shrink: 1;
+  }
+
+  .right-panel {
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.08);
+    order: -1; /* kisebb képernyőn felülre kerül */
+  }
+  .top-bar {
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .central-content {
+    padding-bottom: 20px;
+    justify-content: flex-start;
+  }
+  .bottom-links {
+    padding-top: 10px;
+    gap: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .category-buttons { /* ezek már nincsenek, de a stílus maradhatott */
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .category-buttons button {
+    margin: 5px;
+  }
+
+  .quiz-settings { /* reszponzív stílus a csúszkák konténerére */
+    width: 95%;
+    max-width: none; /* ne korlátozza a max szélesség kisebb képernyőn */
+  }
+
+  .setting-group { /* reszponzív stílus a csúszka csoportokra */
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+  .setting-group label {
+    margin-right: 0;
+  }
+  .setting-group input[type="range"] { /* reszponzív stílus a csúszkákra */
+    margin: 0;
+    width: 100%;
+  }
+  .setting-group span { /* reszponzív stílus a csúszka értékére */
+    width: auto;
+    text-align: left;
+    margin-left: 0;
+  }
+}
+
+/* még kisebb képernyőkhöz (opcionális) */
+@media (max-width: 576px) {
+  .sidebar {
+    justify-content: space-around;
+  }
+  .sidebar-item {
+    padding: 8px;
+  }
+  .central-content h1 {
+    font-size: 2.5em;
+  }
+  .start-quiz-button {
+    padding: 12px 30px;
+    font-size: 1.2em;
+  }
+  .bottom-links {
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+  .user-info {
+    flex-direction: column;
+    font-size: 0.9em;
+  }
+  .user-avatar, .user-name, .user-score {
+    margin: 5px 0;
+  }
+  .right-panel {
+    padding: 15px;
+  }
+  .quiz-settings { /* kisebb margók */
+    margin-bottom: 20px;
+  }
+
+}
+
+/* --- lobby page styles --- */
+
+/* lobby specifikus tartalom konténer a .main-content-area-n belül */
+.lobby-content {
+  flex-grow: 1; /* kitölti a rendelkezésre álló helyet */
+  display: flex;
+  flex-direction: column; /* elemek egymás alatt */
+  align-items: center; /* középre igazítás vízszintesen */
+  padding: 20px;
+  text-align: center; /* alapértelmezett szövegigazítás a blokkon belül */
+  color: #34495e; /* sötétebb szövegszín */
+}
+
+.lobby-content h2 {
+  color: #4a7d85; /* kékeszöld cím */
+  margin-bottom: 30px;
+  font-size: 2em;
+}
+
+/* játék kód kijelzés (host) */
+.game-code {
+  margin-bottom: 30px;
+  padding: 20px 30px;
+  background-color: #ecf0f1; /* világos háttér */
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  text-align: center; /* biztosítja a belső tartalom középre zárását */
+}
+
+.game-code p {
+  margin: 0 0 10px 0;
+  font-size: 1.1em;
+  color: #555;
+}
+
+.code-display {
+  font-size: 3em; /* nagy betűméret */
+  font-weight: bold;
+  color: #e67e22; /* narancssárga/barna szín */
+  letter-spacing: 5px; /* távolság a karakterek között */
+  /* display: inline-block; */ /* ha pontosan középre akarnád zárni a kódot */
+}
+
+/* várakozó üzenet (játékos) */
+.waiting-message {
+  margin-bottom: 30px;
+  font-size: 1.2em;
+  color: #555;
+  padding: 15px;
+  background-color: #dcf0f7; /* halvány kék háttér */
+  border-left: 5px solid #3498db; /* kék bal oldali szegély */
+  border-radius: 5px;
+  text-align: left; /* ha balra szeretnéd igazítani a szöveget a dobozon belül */
+  width: 100%; /* kitölti a rendelkezésre álló szélességet (max-width-ig) */
+  max-width: 500px; /* maximális szélesség */
+  box-sizing: border-box;
+}
+
+
+/* csatlakozott játékosok listája konténer */
+.joined-players-list {
+  margin-bottom: 30px;
+  width: 100%; /* teljes szélesség (max-width-ig) */
+  max-width: 600px; /* <-- ezt kell módosítanunk */
+  margin-left: auto; /* középre igazítás */
+  margin-right: auto; /* középre igazítás */
+  text-align: center; /* középre igazítja a h3 címet */
+}
+
+/* csatlakozott játékosok listája konténer */
+.joined-players-list {
+  margin-bottom: 30px;
+  width: 80%;
+  max-width: none; /* <-- nincs maximális szélesség korlátozás asztali nézetben */
+  margin-left: auto;
+  margin-right: auto;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.joined-players-list ul {
+  list-style: none;
+  display: grid; /* <-- css grid használata */
+  /* oszlopok definiálása: próbál 3-4 elemet elhelyezni, minimum 150px szélességgel */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px; /* <-- távolság a grid elemek között (sorok és oszlopok között is) */
+  justify-content: center; /* <-- középre igazítja a rácsot a konténeren belül */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.joined-players-list li {
+  background-color: #fdfdfd;
+  padding: 10px 15px;
+  border-radius: 5px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  display: flex; /* <-- marad a flexbox, a név és az ikon elrendezéséhez li-n belül */
+  justify-content: space-between; /* név és ikon két oldalon */
+  align-items: center;
+  color: #333;
+  min-width: 250px;
+  word-break: break-word; /* sor törése, ha túl hosszú a név */
+  text-align: left; /* a li belső tartalmának balra igazítása */
+}
+
+/* "ready" ikon */
+.ready-icon {
+  color: #2ecc71; /* zöld szín */
+  font-size: 1.2em;
+  flex-shrink: 0; /* megakadályozza az ikon zsugorodását, ha hosszú a név */
+  margin-left: 10px; /* hely a név és az ikon között */
+}
+
+/* "ready" és "játék indítása" gombok */
+.ready-button,
+.start-game-button {
+  background: linear-gradient(to bottom, #fbc02d, #f57c00);
+  color: white;
+  border: none;
+  padding: 15px 40px;
+  border-radius: 30px;
+  font-size: 1.5em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  margin-top: 20px;
+  flex-shrink: 0; /* megakadályozza a gomb zsugorodását flexboxban */
+}
+
+.ready-button:hover,
+.start-game-button:not(:disabled):hover {
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+  transform: translatey(-3px);
+}
+
+.start-game-button:disabled {
+  background: #bdc3c7; /* szürke háttér letiltva */
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+/* jobb oldali panel a lobbyban - placeholder stílus (ha a tartalom változik) */
+/* ezek felülírhatják az általános .right-panel gyermek stílusokat */
+.right-panel h3 {
+  color: #4a7d85;
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1.3em;
+  text-align: center; /* a jobb panel címét is középre zárhatjuk */
+}
+
+.right-panel p {
+  color: #555;
+  margin: 10px 0;
+  text-align: left; /* a jobb panel szövegét balra igazíthatjuk */
+}
+
+/* itt stílusozhatod a lobby specifikus jobb panel tartalmát (pl. chat doboz) */
+/* .right-panel .lobby-chat { ... } */
+
+
+/* --- reszponzív finomítások a lobbyhoz --- */
+
+@media (max-width: 992px) {
+  .lobby-content h2 {
+    font-size: 1.8em;
+  }
+  .game-code {
+    padding: 15px 20px;
+  }
+  .code-display {
+    font-size: 2.5em;
+  }
+  .waiting-message {
+    font-size: 1em;
+  }
+  .joined-players-list {
+    width: 95%; /* kisebb képernyőn kicsit szélesebb lehet */
+    max-width: none; /* nincs maximális szélesség korlátozás */
+    /* margin: auto; */ /* ha 100% width, nem kell margin auto */
+  }
+  .joined-players-list ul {
+    /* itt esetleg finomíthatjuk a minmax értéket kisebb képernyőre */
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 10px;
+  }
+  .ready-button,
+  .start-game-button {
+    padding: 12px 30px;
+    font-size: 1.2em;
+  }
+  /* jobb panel reszponzivitás a lobbyban (az általános felette van) */
+  .right-panel {
+    /* a reszponzív @media (max-width: 992px) blokkban már beállítottuk a full szélességet és order:-1-et */
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.08); /* árnyék alulra, ha felülre kerül */
+  }
+
+}
+
+/* még kisebb képernyőkhöz */
+@media (max-width: 576px) {
+  .lobby-content h2 {
+    font-size: 1.5em;
+  }
+  .code-display {
+    font-size: 2em;
+  }
+  .joined-players-list ul {
+    /* még kisebb minmax érték a nagyon kicsi képernyőkre */
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 8px;
+  }
+  .ready-button,
+  .start-game-button {
+    padding: 10px 20px;
+    font-size: 1em;
+  }
+  .quiz-settings { /* kisebb margók */
+    margin-bottom: 20px;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* --- topic selection page styles --- */
+
+/* téma kiválasztás specifikus tartalom konténer */
+.topic-selection-content {
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 20px;
+  text-align: center;
+  color: #34495e;
+  position: relative;
+}
+
+.topic-selection-content h2 {
+  color: #4a7d85;
+  margin-bottom: 30px;
+  font-size: 2em;
+}
+
+/* témák konténer */
+.topic-container {
+  display: grid; /* grid használata a témák elrendezéséhez */
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* próbál 2-3 elemet elhelyezni soronként */
+  gap: 20px; /* távolság a témák között */
+  margin-bottom: 30px;
+  width: 100%;
+  max-width: 800px; /* maximális szélesség a témák rácsának */
+  margin-left: auto;
+  margin-right: auto; /* középre igazítás */
+  justify-content: center; /* középre igazítja a rácsot, ha nem tölti ki a teljes szélességet */
+}
+
+/* egyedi téma doboz */
+.topic-item {
+  background-color: #ecf0f1;
+  color: #34495e;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 1.4em;
+  font-weight: bold;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  min-height: 100px;
+ /* transition: box-shadow 0.5s ease; /* átmenet az árnyékhoz */
+  transition: box-shadow 0.3s ease, transform 0.3s ease, background-color 0.3s ease, color 0.3s ease; /* több tulajdonság átmenete */
+
+  /* placeholder animáció - ezt a sort töröld vagy kommentezd ki! */
+  /* animation: pulse-shadow 2s infinite alternate; */
+}
+
+@keyframes flash-background {
+  0% { background-color: transparent; } /* start with no background or base background */
+  50% { background-color: #2ecc71; } /* flash to the selected color */
+  100% { background-color: transparent; } /* flash back */
+}
+
+/* stílus a téma elemhez villogás alatt */
+.topic-item.is-flashing {
+  /* the animation duration and iteration count define the flashing */
+  animation: flash-background 0.3s ease-in-out 3 forwards; /* 0.3s duration, ease timing, repeat 3 times, stay at final state */
+  /* use the background color from .is-selected as the final state after animation */
+  /* this relies on .is-selected also being present */
+}
+
+.topic-item.is-selecting {
+  animation: pulse-shadow 0.5s infinite alternate; /* alkalmazza az animációt */
+  /* átmenetet is finomíthatunk itt, ha kell */
+}
+
+.topic-item.is-selected {
+  /* animation: none; */ /* ez a sor nem feltétlenül szükséges, de jó, ha itt van */
+  background-color: #2ecc71; /* <-- ez a végső háttérszín */
   color: white;
+  box-shadow: 0 6px 20px rgba(46, 204, 113, 0.4); /* <-- ez a végső árnyék */
+  transform: translatey(-5px);
+  transition: all 0.5s ease; /* átmenet a kiválasztott állapotra */
 }
 
-.App-link {
-  color: #61dafb;
+
+@keyframes pulse-shadow {
+  0% {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  100% {
+    box-shadow: 0 4px 15px rgba(230, 126, 34, 0.6); /* narancssárgás, erősebb árnyék */
+  }
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+
+/* visszaszámláló konténer (pozicionálás) */
+.timer-container {
+  position: absolute; /* <-- most abszolút pozíció */
+  bottom: 20px; /* <-- pozíció az .topic-selection-content aljához képest */
+  right: 20px; /* <-- pozíció az .topic-selection-content jobb széléhez képest */
+  /* z-index: 100; */ /* z-index valószínűleg nem kell, ha a szülő position: relative */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 80px;
+  /* ha kisebb képernyőn is absolute marad, a média lekérdezést is módosítani kell */
+}
+
+/* kör alakú visszaszámláló vizuális */
+.circular-timer {
+  width: 100%;
+  height: 100%;
+  border: 8px solid #bdc3c7; /* háttér kör színe */
+  border-top-color: #3498db; /* felső ív színe (ezt majd animáljuk) */
+  border-radius: 50%; /* kör alak */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8em; /* szám mérete */
+  font-weight: bold;
+  color: #34495e; /* szám színe */
+  /* overflow: hidden; */ /* ha belső elemekkel akarod a fogyó hatást */
+
+  /* placeholder pulzáló animáció */
+  animation: pulse-scale 1.5s infinite alternate;
+}
+
+.timer-value {
+  /* a szám maga, középre rendezve a flexbox containerben */
+  z-index: 2; /* biztosítja, hogy a szám látszódjon a kör felett */
+}
+
+/* @keyframes pulse-scale {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 rgba(0,0,0,0);
+    }
+    100% {
+        transform: scale(1.05);
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+} */
+
+
+/* jobb oldali panel a téma kiválasztásban - placeholder stílus */
+/* ezek felülírhatják az általános .right-panel gyermek stílusokat */
+.right-panel h3 {
+  color: #4a7d85; /* maradhat a cím színe */
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1.3em;
+  text-align: center;
+}
+
+.right-panel p {
+  color: #555;
+  margin: 10px 0;
+  text-align: left;
+}
+
+/* --- reszponzív finomítások a téma kiválasztáshoz --- */
+
+@media (max-width: 992px) {
+  .topic-selection-content h2 {
+    font-size: 1.8em;
   }
-  to {
-    transform: rotate(360deg);
+  .topic-container {
+    /* kisebb minmax érték kisebb képernyőre */
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+  }
+
+  .topic-item {
+    font-size: 1.2em;
+    min-height: 80px;
+    padding: 15px;
+    transition: box-shadow 0.5s ease;
+    animation: pulse-shadow 2s infinite alternate; /* apply the animation */
+
+    @keyframes pulse-shadow {
+      0% {
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      }
+      100% {
+        box-shadow: 0 4px 15px rgba(230, 126, 34, 0.6); /* brighter, more orangey shadow */
+      }
+    }
+  }
+  .timer-container { /* kisebb méret kisebb képernyőn */
+    width: 60px;
+    height: 60px;
+    bottom: 20px;
+    right: 20px;
+  }
+  .circular-timer {
+    border-width: 6px; /* keskenyebb szegély */
+  }
+  .circular-timer .timer-value {
+    font-size: 1.5em;
+  }
+
+}
+
+/* még kisebb képernyőkhöz */
+@media (max-width: 576px) {
+  .topic-selection-content h2 {
+    font-size: 1.5em;
+  }
+  .topic-container {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 10px;
+  }
+  .topic-item {
+    font-size: 1em;
+    min-height: 70px;
+    padding: 10px;
+  }
+  .timer-container { /* még kisebb méret */
+    width: 50px;
+    height: 50px;
+    bottom: 15px;
+    right: 15px;
+  }
+  .circular-timer {
+    border-width: 5px;
+  }
+  .circular-timer .timer-value {
+    font-size: 1.2em;
   }
 }
+
+/* visszaszámláló konténer (pozicionálás) */
+.timer-container {
+  position: absolute; /* <-- ennek így kell lennie */
+  bottom: 20px; /* pozíció a szülő aljához képest */
+  right: 20px; /* pozíció a szülő jobb széléhez képest */
+  /* z-index: 2; */ /* szükséges lehet */
+  width: 80px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* svg kör progress bar */
+.circular-progress {
+  position: absolute; /* hogy a szám fölé kerüljön */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg); /* kezdőpont felül legyen */
+  /* overflow: visible; */ /* biztosítja, hogy látszódjon az ív */
+  z-index: 1; /* alatta legyen a számnak */
+}
+
+.circle-bg {
+  fill: none; /* nincs kitöltés */
+  stroke: #bdc3c7; /* háttér kör színe */
+}
+
+.circle-progress {
+  fill: none;
+  stroke: #3498db;
+  stroke-linecap: round;
+  /* stroke-dasharray és stroke-dashoffset most a jsx/js vezérli */
+
+  /* animation: countdown 10s linear forwards; */ /* <-- töröld vagy kommentezd ki ezt a sort */
+}
+ @keyframes countdown {
+    0% {
+        stroke-dashoffset: 0;
+    }
+    100% {
+         stroke-dashoffset: 100.5;  /* kerület negatívja (kb 2*pi*16) vagy pontos érték
+                                     ha stroke-dasharray 100 100, akkor 100 vagy -100 mozgatja
+                                     az ívet a teljes körön át.
+                                     animáljuk 0-ról 100-ra, ha stroke-dasharray 100 100. */
+    }
+}
+/* megjegyzés: a stroke-dashoffset értéket pontosan kell illeszteni a stroke-dasharray értékhez
+   a teljes kör animálásához. ha stroke-dasharray="100 100", akkor 0-ról 100-ra (vagy -100-ra)
+   animáljuk a progress ív eltüntetéséhez. */
+/* a pontos érték a kör kerülete (2 * pi * r). ha r=16, akkor kb 100.53.
+   használhatunk css változót is a kerület tárolására. */
+
+/* --- settings page styles --- */
+
+/* beállítások specifikus tartalom konténer */
+.settings-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column; /* szekciók egymás alatt */
+  /* align-items: center; */ /* ha a teljes tartalom blokkot középre akarod zárni */
+  padding: 20px;
+  color: #34495e;
+  max-width: 800px; /* korlátozzuk a szélességet nagy képernyőn */
+  margin: 0 auto; /* középre zárjuk a blokkot */
+}
+
+.settings-content h2 {
+  color: #4a7d85;
+  margin-bottom: 30px;
+  font-size: 2em;
+  text-align: center; /* középre zárjuk a fő címet */
+}
+
+.settings-section {
+  background-color: #fdfdfd; /* világos háttér */
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  border-left: 5px solid #3498db; /* kék bal oldali díszítés */
+}
+
+.settings-section h3 {
+  color: #3498db; /* kék cím */
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1.3em;
+  border-bottom: 1px solid #eee; /* elválasztó vonal */
+  padding-bottom: 10px;
+}
+
+.settings-section p {
+  color: #555;
+  margin: 0 0 15px 0; /* helyet ad a leendő beviteli mezőknek */
+}
+
+/* --- reszponzív finomítások a beállítások oldalhoz --- */
+
+@media (max-width: 992px) {
+  .settings-content {
+    padding: 15px;
+    max-width: none; /* nincs maximális szélesség korlátozás kisebb képernyőn */
+  }
+  .settings-content h2 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+  }
+  .settings-section {
+    padding: 15px;
+    margin-bottom: 15px;
+    border-left-width: 4px;
+  }
+  .settings-section h3 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  .settings-content {
+    padding: 10px;
+  }
+  .settings-content h2 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+  }
+  .settings-section {
+    padding: 10px;
+    margin-bottom: 10px;
+    border-left-width: 3px;
+  }
+  .settings-section h3 {
+    font-size: 1.1em;
+    margin-bottom: 8px;
+  }
+}
+/* src/app.css - modify question page styles */
+
+/* kérdés specifikus tartalom konténer */
+.question-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  text-align: center;
+  color: #34495e;
+  position: relative; /* <-- fontos: ehhez képest lesz pozícionálva a timer */
+  padding-bottom: 120px; /* adjon helyet a timernek (+ padding + margin) */
+}
+
+.question-content h2 {
+  color: #4a7d85;
+  margin-bottom: 25px; /* slightly increased margin */
+  font-size: 2.2em; /* increased font size */
+}
+
+.question-text {
+  font-size: 1.8em; /* increased font size */
+  margin-bottom: 40px; /* increased margin */
+  max-width: 900px; /* increased max-width */
+  line-height: 1.5;
+}
+
+/* válaszlehetőségek konténer */
+.answer-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* increased min-width for columns */
+  gap: 20px; /* increased gap */
+  margin-bottom: 40px; /* increased margin */
+  width: 100%;
+  max-width: 800px; /* increased max-width */
+}
+
+/* src/app.css - modified answer button styles (green) */
+.answer-button {
+  background-color: #ecf0f1; /* <-- neutral light grey background, like topic item */
+  color: #333; /* <-- darker text color for readability */
+  border: none; /* keep border none */
+  padding: 20px 25px;
+  border-radius: 8px;
+  font-size: 1.3em;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease; /* added border-color to transition */
+  text-align: left;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  border: 1px solid transparent; /* add a transparent border initially */
+}
+
+.answer-button:hover {
+  background-color: #dcdfe4; /* <-- slightly darker grey on hover */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15); /* slightly stronger shadow */
+  border-color: #bdc3c7; /* add a subtle border on hover */
+}
+
+.answer-button .option-id {
+  font-weight: bold;
+  margin-right: 15px; /* increased margin */
+  flex-shrink: 0;
+}
+.answer-button .option-text {
+  flex-grow: 1;
+  /* Add text wrapping for long text */
+  word-wrap: break-word; /* Older syntax */
+  overflow-wrap: break-word; /* Newer syntax */
+}
+
+
+/* kérdés visszaszámláló - optional size increase */
+/* ha a timer is nagyobb kell */
+/*
+.timer-container.question-timer {
+     width: 80px;
+     height: 80px;
+}
+
+.timer-container.question-timer .circular-timer {
+     border-width: 8px;
+}
+
+.timer-container.question-timer .circular-timer .timer-value {
+    font-size: 1.8em;
+}
+*/
+
+
+/* ... reszponzív finomítások a kérdés oldalhoz ... */
+
+@media (max-width: 992px) {
+  .question-content {
+    padding: 20px; /* adjusted padding */
+  }
+  .question-content h2 {
+    font-size: 2em; /* adjusted font size */
+    margin-bottom: 20px;
+  }
+  .question-text {
+    font-size: 1.6em; /* adjusted font size */
+    margin-bottom: 25px;
+    max-width: 100%; /* let text use full width */
+  }
+  .answer-options {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* adjusted min width */
+    gap: 15px; /* adjusted gap */
+    max-width: 100%; /* let options use full width */
+  }
+  .answer-button {
+    padding: 15px 20px; /* adjusted padding */
+    font-size: 1.2em; /* adjusted font size */
+  }
+  .answer-button .option-id {
+    margin-right: 10px; /* adjusted margin */
+  }
+  /* question timer reszponzív, ha méretét növeltük */
+  /*
+  .timer-container.question-timer {
+      width: 60px;
+      height: 60px;
+  }
+   .timer-container.question-timer .circular-timer {
+      border-width: 6px;
+   }
+    .timer-container.question-timer .circular-timer .timer-value {
+      font-size: 1.5em;
+    }
+  */
+}
+
+@media (max-width: 576px) {
+  .question-content {
+    padding: 15px;
+  }
+  .question-content h2 {
+    font-size: 1.8em;
+    margin-bottom: 15px;
+  }
+  .question-text {
+    font-size: 1.4em;
+    margin-bottom: 20px;
+  }
+  .answer-options {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px;
+  }
+  .answer-button {
+    padding: 12px 15px;
+    font-size: 1.1em;
+    flex-direction: column; /* kisebb képernyőn egymás alá */
+    align-items: flex-start;
+  }
+  .answer-button .option-id {
+    margin-right: 0;
+    margin-bottom: 5px;
+  }
+  /* question timer reszponzív, ha méretét növeltük */
+  /*
+   .timer-container.question-timer {
+       width: 50px;
+       height: 50px;
+   }
+    .timer-container.question-timer .circular-timer {
+        border-width: 5px;
+    }
+     .timer-container.question-timer .circular-timer .timer-value {
+        font-size: 1.2em;
+     }
+  */
+}
+
+/* --- right panel (player list) styles --- */
+
+/* right panel container (rendered by playerlistpanel) */
+/* ezek a stílusok a <aside classname="right-panel"> elemre vonatkoznak */
+.right-panel {
+  width: 280px; /* fix szélesség */
+  background-color: #fdfcfb; /* világos háttér */
+  padding: 20px; /* belső térköz */
+  box-shadow: -2px 0 8px rgba(0,0,0,0.08); /* finom árnyék bal oldalon */
+  flex-shrink: 0; /* megakadályozza a zsugorodást flexboxban */
+  display: flex; /* flexbox a belső elemek (cím, lista) elrendezéséhez */
+  flex-direction: column; /* belső elemek egymás alatt */
+  overflow-y: auto; /* függőleges görgetés engedélyezése, ha a tartalom túl hosszú */
+}
+
+/* cím a jobb panel tetején */
+.right-panel h3 {
+  color: #4a7d85; /* kékeszöld cím színe */
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1.3em;
+  text-align: center; /* középre igazítás */
+  flex-shrink: 0; /* megakadályozza a cím zsugorodását */
+}
+
+/* konténer a játékoslistának a címen belül */
+.player-list-container {
+  flex-grow: 1; /* kitölti a rendelkezésre álló függőleges helyet a címen túl */
+  overflow-y: auto; /* belső görgetés a listának, ha az önmagában túl hosszú */
+  padding-right: 10px; /* térköz a jobb oldalon a görgetősáv miatt (opcionális) */
+}
+
+/* görgetősáv stílus webkit böngészőkhöz (chrome, safari) */
+.player-list-container::-webkit-scrollbar {
+  width: 8px; /* görgetősáv szélessége */
+}
+
+.player-list-container::-webkit-scrollbar-track {
+  background: #f1f1f1; /* görgetősáv sávjának színe */
+  border-radius: 10px;
+}
+
+.player-list-container::-webkit-scrollbar-thumb {
+  background: #888; /* görgetősáv "fogantyújának" színe */
+  border-radius: 10px;
+}
+
+.player-list-container::-webkit-scrollbar-thumb:hover {
+  background: #555; /* sötétebb szín hover-re */
+}
+
+
+/* egyedi játékos profilkártya */
+.player-card {
+  background-color: #ecf0f1; /* világos szürke háttér */
+  border-radius: 8px;
+  padding: 10px 15px;
+  margin-bottom: 10px; /* térköz a kártyák között */
+  display: flex; /* flexbox az avatar, info, score elrendezéséhez */
+  align-items: center; /* függőleges középre igazítás */
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08); /* finom árnyék */
+  border-left: 4px solid transparent; /* placeholder a státusz/szerepkör jelzésére */
+  transition: border-color 0.3s ease; /* átmenet a border színre */
+}
+
+/* stílusok játékos státusz vagy szerepkör alapján (opcionális) */
+/* ezeket a class-okat a playerlistpanel.tsx-ben adhatod hozzá a player.status vagy player.ishost alapján */
+
+.player-card.is-host { border-left-color: #e67e22; }
+.player-card.status-joined { border-left-color: #2ecc71;}
+.player-card.status-waiting_to_reconnect {border-left-color: darkgoldenrod;}
+.player-card.status-lobby { border-left-color: #3498db; }
+.player-card.status-ingame { border-left-color: #e74c3c; }
+.player-card.status-ready { border-left-color: #f1c40f; }
+
+
+
+/* játékos avatar (első betű) */
+.player-card-avatar {
+  width: 35px;
+  height: 35px;
+  background-color: #bdc3c7; /* szürke alap háttér */
+  color: white; /* fehér szöveg */
+  border-radius: 50%; /* kör alak */
+  display: flex;
+  align-items: center;
+  justify-content: center; /* szöveg középre igazítása */
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-right: 10px; /* térköz az infó mellett */
+  flex-shrink: 0; /* megakadályozza az avatar zsugorodását */
+}
+
+/* optional: host avatar különleges szín */
+.player-card.is-host .player-card-avatar {
+  background-color: #e67e22; /* narancssárga a host avatarhoz */
+}
+
+
+/* játékos információk (név és pontszám) */
+.player-card-info {
+  flex-grow: 1; /* kitölti a rendelkezésre álló helyet az avatar és score között */
+  display: flex;
+  flex-direction: column; /* név és pontszám egymás alatt */
+}
+
+.player-card-name {
+  font-size: 1.1em;
+  font-weight: bold;
+  color: #333; /* sötét szöveg */
+  word-break: break-word; /* hosszú nevek tördelése */
+  line-height: 1.3; /* sor magasság */
+}
+
+.player-card-score {
+  font-size: 0.9em;
+  color: #555; /* sötétebb szürke */
+}
+
+/* üzenet, ha nincsenek játékosok */
+.no-players-message {
+  text-align: center;
+  color: #777;
+  margin-top: 20px;
+}
+
+
+/* --- reszponzív beállítások a jobb panelhez és a profilkártyákhoz --- */
+/* ezek a stílusok felülírják a fenti alap stílusokat kisebb képernyőn */
+
+@media (max-width: 992px) {
+  .right-panel {
+    /* a layout css már beállította a 100% width-et és order:-1-et ebben a média lekérdezésben */
+    padding: 15px; /* kisebb belső térköz */
+    /* overflow-y: visible; */ /* kisebb képernyőn lehet, hogy nem kell görgetni az egész panelt */
+    height: auto; /* magasság legyen automatikus a tartalomhoz igazodva */
+    max-height: 300px; /* de legyen max magassága, és azon belül görgethető (ha sok elem van) */
+    overflow-y: auto; /* görgetés engedélyezése, ha meghaladja a max-height-et */
+  }
+  .right-panel h3 {
+    margin-bottom: 10px;
+  }
+  /* kisebb méret a profilkártyáknak */
+  .player-card {
+    padding: 8px 10px;
+    margin-bottom: 8px;
+  }
+  .player-card-avatar {
+    width: 30px;
+    height: 30px;
+    font-size: 1em;
+    margin-right: 8px;
+  }
+  .player-card-name {
+    font-size: 1em;
+  }
+  .player-card-score {
+    font-size: 0.8em;
+  }
+}
+
+@media (max-width: 576px) {
+  .right-panel {
+    padding: 10px;
+    max-height: 250px; /* még kisebb max magasság */
+  }
+  .right-panel h3 {
+    font-size: 1.2em;
+    margin-bottom: 8px;
+  }
+  .player-card {
+    padding: 6px 8px;
+    margin-bottom: 6px;
+  }
+  .player-card-avatar {
+    width: 25px;
+    height: 25px;
+    font-size: 0.9em;
+    margin-right: 6px;
+  }
+  .player-card-name {
+    font-size: 0.9em;
+  }
+  .player-card-score {
+    font-size: 0.7em;
+  }
+}
+
+/* src/app.css - add or modify statistics page styles */
+
+/* statisztikák fő konténer (marad) */
+/* .statistics-content { ... } */
+/* .statistics-content h2 { ... } */
+
+/* statisztika szekciók alap (marad, de a border-color-t lehet itt általánosítani,
+   és specifikus border-color-t adni a .player-stats, .match-stats osztályoknak) */
+.statistics-section {
+  background-color: #fdfdfd;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  border-left: 5px solid #bdc3c7; /* általános szürke border */
+}
+
+.statistics-section h3 {
+  /* color: #2ecc71; */ /* a szín most specifikusabb lesz */
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1.3em;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+/* specifikus border színek a szekcióknak */
+.statistics-section.player-stats h3 { color: #2ecc71; } /* zöld cím a játékos statoknak */
+.statistics-section.player-stats { border-left-color: #2ecc71; } /* zöld border a játékos statoknak */
+
+.statistics-section.match-stats h3 { color: #3498db; } /* kék cím a meccs statoknak */
+.statistics-section.match-stats { border-left-color: #3498db; } /* kék border a meccs statoknak */
+
+.statistics-section.achievements-section h3 { color: #f1c40f; } /* sárga cím az achievementsnek */
+.statistics-section.achievements-section { border-left-color: #f1c40f; } /* sárga border az achievementsnek */
+
+
+/* játékos statisztikák lista (marad) */
+/* .player-stats-list { ... } */
+/* .stat-item { ... } */
+/* .stat-label { ... } */
+/* .stat-value { ... } */
+
+
+/* meccs statisztikák lista (újrahasználjuk a player-stats-list stílusát) */
+.match-stats-list {
+  /* itt nincsenek specifikus stílusok, mivel a player-stats-list stílusokat használja */
+  /* ha kellene külön stílus, ide jönne */
+}
+
+
+/* --- top 3 játékos ranglista --- */
+.top-players-container {
+  display: grid; /* grid a 3 kártya elrendezéséhez */
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* próbál 3 elemet */
+  gap: 20px; /* térköz a kártyák között */
+  margin-bottom: 30px;
+  width: 100%;
+  max-width: 800px; /* maximális szélesség */
+  margin-left: auto;
+  margin-right: auto; /* középre igazítás */
+  justify-content: center; /* középre igazítja a rácsot */
+}
+
+/* egyedi top játékos kártya */
+.top-player-card {
+  background-color: #fdfdfd;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  display: flex; /* flexbox a kártya tartalmának elrendezéséhez */
+  flex-direction: column; /* tartalom egymás alatt */
+  align-items: center; /* középre igazítás */
+  position: relative; /* pozíció a rang jelvényhez */
+  border: 3px solid transparent; /* placeholder rang border-hez */
+}
+
+/* rang jelvény (1, 2, 3) */
+.top-player-rank-badge {
+  position: absolute;
+  top: -15px; /* fentebb helyezzük a kártyához képest */
+  left: 50%;
+  transform: translatex(-50%); /* vízszintes középre igazítás */
+  background-color: #bdc3c7; /* alap szürke */
+  color: white;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1.1em;
+  border: 2px solid #fdfdfd; /* kis fehér szegély */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* specifikus rang jelvény színek és kártya borderek */
+.top-player-card.rank-1 .top-player-rank-badge { background-color: #f1c40f; border-color: #fbc02d; color: #333; } /* arany */
+.top-player-card.rank-1 { border-color: #fbc02d; } /* arany border a kártyának */
+
+.top-player-card.rank-2 .top-player-rank-badge { background-color: #bdc3c7; border-color: #95a5a6; color: white; } /* ezüst */
+.top-player-card.rank-2 { border-color: #95a5a6; } /* ezüst border a kártyának */
+
+.top-player-card.rank-3 .top-player-rank-badge { background-color: #e67e22; border-color: #d35400; color: white; } /* bronz */
+.top-player-card.rank-3 { border-color: #d35400; } /* bronz border a kártyának */
+
+
+.top-players-container {
+  display: flex; /* <-- Change to Flexbox */
+  justify-content: center; /* Center the flex items horizontally */
+  align-items: flex-end; /* <-- Align items to the bottom */
+  gap: 10px; /* Gap between the flex items */
+  margin-bottom: 30px;
+  width: 100%;
+  max-width: 800px; /* Can adjust this max-width */
+  margin-left: auto;
+  margin-right: auto;
+  /* Remove justify-content: center; from here if it was for grid */
+}
+
+/* Remove the previous grid-template-columns and gap from .top-players-container if they exist */
+/* grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); */
+/* gap: 20px; */
+/* justify-content: center; */ /* Remove if switching from grid */
+
+
+/* Egyedi Top Játékos Kártya - Base Styles (apply to all top player cards) */
+.top-player-card {
+  background-color: #fdfdfd;
+  border-radius: 10px;
+  padding: 15px; /* Base padding */
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  border: 3px solid transparent;
+  transition: all 0.3s ease; /* Add transition for size/position changes */
+  flex-shrink: 0; /* Prevent shrinking below base size */
+  flex-grow: 0; /* Prevent growing */
+}
+
+/* --- Size and Style Differences by Rank --- */
+
+/* Rank 1 (Center) */
+.top-player-card.rank-1 {
+  width: 250px; /* Largest width */
+  padding: 30px; /* More padding */
+  /* Optional: Use order if not rendered in order 2, 1, 3 in HTML */
+  /* order: 2; */ /* If HTML order is 1, 2, 3 */
+  border-color: #fbc02d; /* Arany border */
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2); /* Stronger shadow */
+  transform: translateY(-10px); /* Lift it up slightly */
+}
+.top-player-card.rank-1 .top-player-rank-badge { background-color: #f1c40f; border-color: #fbc02d; color: #333; }
+.top-player-card.rank-1 .top-player-avatar { width: 80px; height: 80px; font-size: 2.5em; margin-bottom: 15px; }
+.top-player-card.rank-1 .top-player-name { font-size: 1.6em; }
+.top-player-card.rank-1 .top-player-score { font-size: 1.2em; }
+
+
+/* Rank 2 (Left) */
+.top-player-card.rank-2 {
+  width: 200px; /* Medium width */
+  padding: 20px;
+  /* Optional: Use order */
+  /* order: 1; */ /* If HTML order is 1, 2, 3 */
+  border-color: #95a5a6; /* Ezüst border */
+}
+.top-player-card.rank-2 .top-player-rank-badge { background-color: #bdc3c7; border-color: #95a5a6; color: white; }
+.top-player-card.rank-2 .top-player-avatar { width: 60px; height: 60px; font-size: 2em; margin-bottom: 10px; }
+.top-player-card.rank-2 .top-player-name { font-size: 1.4em; }
+.top-player-card.rank-2 .top-player-score { font-size: 1.1em; }
+
+
+/* Rank 3 (Right) */
+.top-player-card.rank-3 {
+  width: 180px; /* Smallest width */
+  padding: 15px;
+  /* Optional: Use order */
+  /* order: 3; */ /* If HTML order is 1, 2, 3 */
+  border-color: #d35400; /* Bronz border */
+}
+.top-player-card.rank-3 .top-player-rank-badge { background-color: #e67e22; border-color: #d35400; color: white; }
+.top-player-card.rank-3 .top-player-avatar { width: 50px; height: 50px; font-size: 1.8em; margin-bottom: 8px; }
+.top-player-card.rank-3 .top-player-name { font-size: 1.2em; }
+.top-player-card.rank-3 .top-player-score { font-size: 1em; }
+
+
+/* Rang Jelvény Base (apply to all) */
+.top-player-rank-badge {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #bdc3c7;
+  color: white;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1.1em;
+  border: 2px solid #fdfdfd;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* --- elválasztó vonal --- */
+.stats-separator {
+  border: none;
+  height: 1px;
+  background-color: #eee; /* világos szürke vonal */
+  margin: 40px auto; /* térköz felette és alatta, középre zárva */
+  width: 80%; /* vonal szélessége */
+  max-width: 600px;
+}
+
+
+/* --- reszponzív finomítások a statisztika oldalhoz (új elemek) --- */
+
+@media (max-width: 992px) {
+  /* top 3 grid */
+  .top-players-container {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* kisebb min szélesség */
+    gap: 15px;
+  }
+  /* top játékos kártya */
+  .top-player-card {
+    padding: 15px;
+  }
+  .top-player-rank-badge {
+    width: 25px;
+    height: 25px;
+    font-size: 1em;
+    top: -12px;
+    border-width: 1px;
+  }
+  .top-player-avatar {
+    width: 50px;
+    height: 50px;
+    font-size: 1.8em;
+  }
+  .top-player-name {
+    font-size: 1.2em;
+  }
+  .top-player-score {
+    font-size: 1em;
+  }
+
+  /* elválasztó */
+  .stats-separator {
+    margin: 30px auto;
+    width: 90%;
+  }
+}
+
+@media (max-width: 576px) {
+  /* top 3 grid */
+  .top-players-container {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+  }
+  /* top játékos kártya */
+  .top-player-card {
+    padding: 10px;
+  }
+  .top-player-rank-badge {
+    width: 20px;
+    height: 20px;
+    font-size: 0.9em;
+    top: -10px;
+    border-width: 1px;
+  }
+  .top-player-avatar {
+    width: 40px;
+    height: 40px;
+    font-size: 1.5em;
+  }
+  .top-player-name {
+    font-size: 1em;
+  }
+  .top-player-score {
+    font-size: 0.9em;
+  }
+
+  /* elválasztó */
+  .stats-separator {
+    margin: 20px auto;
+    width: 95%;
+  }
+}
+
+/* --- Results Page Styles --- */
+
+/* Eredmények specifikus tartalom konténer */
+.results-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column; /* Elemek egymás alatt */
+  align-items: center; /* Középre igazítás vízszintesen */
+  padding: 20px;
+  text-align: center;
+  color: #34495e;
+  max-width: 800px; /* Korlátozzuk a szélességet nagy képernyőn */
+  margin: 0 auto; /* Középre zárjuk a blokkot */
+}
+
+.results-content h2 {
+  color: #4a7d85;
+  margin-bottom: 20px;
+  font-size: 2.5em; /* Nagyobb cím */
+}
+
+.results-content h3 {
+  color: #34495e; /* Sötétebb cím */
+  margin-bottom: 30px;
+  font-size: 1.8em;
+}
+
+
+/* Végső Rangsor Lista */
+.final-rankings {
+  width: 100%;
+  max-width: 600px; /* Maximális szélesség a listának */
+  margin-bottom: 40px; /* Térköz a gombok alatt */
+  text-align: left; /* Balra igazítás */
+}
+
+/* Egyedi játékos eredmény sor */
+.player-result {
+  background-color: #fdfdfd; /* Világos háttér */
+  border-radius: 8px;
+  padding: 15px 20px;
+  margin-bottom: 10px; /* Térköz a sorok között */
+  display: flex; /* Flexbox a tartalom elrendezéséhez */
+  align-items: center; /* Függőleges középre */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  border-left: 5px solid transparent; /* Placeholder a rang jelzésére */
+  transition: border-color 0.3s ease;
+}
+
+/* Rang jelzés a border-left-tel */
+.player-result.rank-1 { border-left-color: #fbc02d; } /* Arany */
+.player-result.rank-2 { border-left-color: #bdc3c7; } /* Ezüst */
+.player-result.rank-3 { border-left-color: #e67e22; } /* Bronz */
+/* Egyéb rangokhoz lehet más szín vagy alap szürke */
+.player-result:not(.rank-1):not(.rank-2):not(.rank-3) { border-left-color: #eee; }
+
+
+.result-rank {
+  font-size: 1.5em; /* Nagyobb rang szám */
+  font-weight: bold;
+  margin-right: 20px; /* Térköz a név mellett */
+  color: #555;
+  width: 40px; /* Fix szélesség a rendezéshez */
+  flex-shrink: 0; /* Ne zsugorodjon */
+  text-align: right; /* Szám jobbra igazítás */
+}
+
+.result-name {
+  font-size: 1.3em; /* Nagyobb név */
+  font-weight: bold;
+  color: #333;
+  flex-grow: 1; /* Kitölti a rendelkezésre álló helyet */
+  margin-right: 20px; /* Térköz a pontszám mellett */
+  word-break: break-word;
+}
+
+.result-score {
+  font-size: 1.5em; /* Nagyobb pontszám */
+  font-weight: bold;
+  color: #4a7d85; /* Kékeszöld pontszám szín */
+  flex-shrink: 0; /* Ne zsugorodjon */
+  text-align: right; /* Pontszám jobbra igazítás */
+}
+
+/* Győztes sor kiemelés */
+.player-result.is-winner {
+  background-color: #fffbe0; /* Világos sárgás háttér */
+  box-shadow: 0 4px 12px rgba(241, 196, 15, 0.3); /* Arany árnyék */
+}
+
+.winner-crown {
+  color: #f1c40f; /* Arany korona ikon */
+  font-size: 1.8em;
+  margin-left: 10px;
+  flex-shrink: 0;
+}
+
+
+/* Játék Utáni Gombok Konténer */
+.post-game-actions {
+  display: flex; /* Flexbox a gombokhoz */
+  gap: 20px; /* Térköz a gombok között */
+  justify-content: center; /* Középre igazítás */
+  margin-top: 20px;
+  flex-wrap: wrap; /* Törjön sorba kisebb helyen */
+}
+
+/* Játék Utáni Gomb Stílus (használjuk a .start-quiz-button alapjait) */
+.post-game-button {
+  background: linear-gradient(to bottom, #3498db, #2980b9); /* Kék színátmenet */
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 25px; /* Kerekítettebb sarkok */
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.post-game-button:hover {
+  background: linear-gradient(to bottom, #2980b9, #3498db); /* Fordított vagy más átmenet hover-re */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  transform: translateY(-2px);
+}
+
+/* Specifikus gomb színek/stílusok (opcionális) */
+.post-game-button.play-again { background: linear-gradient(to bottom, #2ecc71, #27ae60); } /* Zöld */
+.post-game-button.play-again:hover { background: linear-gradient(to bottom, #27ae60, #2ecc71); }
+
+.post-game-button.back-to-lobby { background: linear-gradient(to bottom, #95a5a6, #7f8c8d); } /* Szürke */
+.post-game-button.back-to-lobby:hover { background: linear-gradient(to bottom, #7f8c8d, #95a5a6); }
+
+
+/* --- Reszponzív finomítások az Eredmény Oldalhoz --- */
+
+@media (max-width: 992px) {
+  .results-content {
+    padding: 15px;
+    max-width: none;
+  }
+  .results-content h2 {
+    font-size: 2em;
+    margin-bottom: 15px;
+  }
+  .results-content h3 {
+    font-size: 1.6em;
+    margin-bottom: 20px;
+  }
+  .final-rankings {
+    max-width: 100%;
+  }
+  .player-result {
+    padding: 12px 15px;
+  }
+  .result-rank {
+    font-size: 1.3em;
+    margin-right: 15px;
+    width: 30px;
+  }
+  .result-name {
+    font-size: 1.1em;
+    margin-right: 15px;
+  }
+  .result-score {
+    font-size: 1.3em;
+  }
+  .winner-crown {
+    font-size: 1.6em;
+  }
+  .post-game-actions {
+    gap: 15px;
+  }
+  .post-game-button {
+    padding: 10px 20px;
+    font-size: 1em;
+  }
+}
+
+@media (max-width: 576px) {
+  .results-content {
+    padding: 10px;
+  }
+  .results-content h2 {
+    font-size: 1.8em;
+    margin-bottom: 10px;
+  }
+  .results-content h3 {
+    font-size: 1.4em;
+    margin-bottom: 15px;
+  }
+  .player-result {
+    padding: 10px 12px;
+    flex-wrap: wrap; /* Törjön sorba kisebb helyen */
+    justify-content: center;
+  }
+  .result-rank, .result-name, .result-score, .winner-crown {
+    margin: 5px; /* Kis térköz az elemek között */
+    flex-shrink: 1; /* Engedélyezzük a zsugorodást */
+    width: auto; /* Visszaállítjuk az automatikus szélességet */
+    text-align: center; /* Középre igazítjuk */
+  }
+  .result-rank {
+    font-size: 1.1em;
+    width: auto; /* Rang szám jobban illeszkedjen */
+  }
+  .result-name {
+    font-size: 1em;
+    flex-basis: 100%; /* Név teljes sort foglal el */
+    margin-right: 0;
+  }
+  .result-score {
+    font-size: 1.1em;
+    margin-right: 0;
+  }
+  .winner-crown {
+    font-size: 1.4em;
+    margin-left: 0;
+  }
+  .post-game-actions {
+    gap: 10px;
+  }
+  .post-game-button {
+    padding: 8px 15px;
+    font-size: 0.9em;
+  }
+}
+
+/* Konténer a játékos indikátoroknak a válasz gombon belül */
+.answer-button .players-who-chose {
+  display: flex; /* Flexbox a kis ikonok elrendezéséhez */
+  flex-wrap: wrap; /* Törik sorba, ha sokan választották */
+  gap: 5px; /* Térköz az ikonok között */
+  margin-top: 10px; /* Térköz a válasz szöveg alatt */
+  justify-content: center; /* Középre igazítás */
+}
+
+/* Egyedi játékos indikátor a válasz gombon */
+.answer-button .chosen-player-indicator {
+  /* Újrahasználjuk a player-badge vagy player-card-avatar stílusok alapjait */
+  width: 25px; /* Kisebb méret */
+  height: 25px;
+  background-color: #bdc3c7; /* Alap szürke háttér */
+  color: white; /* Fehér szöveg */
+  border-radius: 50%; /* Kör alak */
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Szöveg középre igazítása */
+  font-size: 0.9em;
+  font-weight: bold;
+  flex-shrink: 0; /* Ne zsugorodjon */
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* Finom árnyék */
+}
+
+/* Optional: Különböző szín a helyes/helytelen válaszadó ikonjához */
+/* Ehhez tudni kell, hogy az adott játékos helyesen válaszolt-e.
+   Ez az infó a placeholderPlayerAnswers-ben benne van (scoreChange > 0),
+   de a JSX-ben most nem passzoljuk át ide ezt az isCorrect infót a playerAnswer objektumnál a map-ben.
+   Át kellene passzolni egy property-t, vagy újra kiértékelni itt.
+   Egyelőre csak alap szín van. */
+/*
+.answer-button .chosen-player-indicator.is-correct-answer { background-color: #2ecc71; }
+.answer-button .chosen-player-indicator.is-incorrect-answer { background-color: #e74c3c; }
+*/
